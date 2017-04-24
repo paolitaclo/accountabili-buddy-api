@@ -5,6 +5,7 @@ exports.up = knex => knex.schema.createTable('users_exercises_images', (table) =
   table.integer('exercise_id').notNullable().references('id').inTable('exercises');
   table.integer('exercise_num_total').notNullable();
   table.boolean('logged_results').defaultTo('false');
+  table.timestamps(true, true);
 });
 
 exports.down = knex => knex.schema.dropTable('users_exercises_images');
