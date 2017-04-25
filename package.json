@@ -2,17 +2,27 @@
   "name": "accountabili-buddy-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
+    "bcrypt-as-promised": "^1.1.0",
+    "body-parser": "^1.17.1",
     "bookshelf": "^0.10.3",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
     "knex": "^0.12.9",
+    "morgan": "^1.8.1",
     "pg": "^6.1.5"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0"
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.19.0",
+    "nodemon": "^1.11.0"
   },
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -1,4 +1,4 @@
-import Bookshelf from '../bookshelf';
+const Bookshelf = require('../bookshelf');
 
 require('./teams');
 require('./users_teams');
@@ -15,4 +15,4 @@ const Users = Bookshelf.Model.extend({
   // usersExercisesImages: () => this.hasMany('UsersExercisesImages')
 });
 
-export default Bookshelf.model('Users', Users);
+module.exports = Bookshelf.model('Users', Users);
