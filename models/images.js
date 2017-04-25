@@ -1,4 +1,4 @@
-import Bookshelf from '../bookshelf';
+const Bookshelf = require('../bookshelf');
 
 require('./users');
 
@@ -7,4 +7,4 @@ const Images = Bookshelf.Model.extend({
   user: () => this.belongsTo('Users')
 });
 
-export default Bookshelf.model('Images', Images);
+module.exports = Bookshelf.model('Images', Images);
