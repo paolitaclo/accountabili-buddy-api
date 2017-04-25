@@ -1,10 +1,12 @@
 import Bookshelf from '../bookshelf';
 
 require('./users');
+require('./users_exercises_images');
+
 
 const Exercises = Bookshelf.Model.extend({
   tableName: 'exercises',
-  user: () => this.hasMany('Users') // hasMany or belongsToMany??
+  users: () => this.belongsToMany('Users').through('UsersExercisesImages')
 });
 
 export default Bookshelf.model('Exercises', Exercises);
