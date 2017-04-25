@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bookshelf": "^0.10.3",
     "express": "^4.15.2",
     "knex": "^0.12.9",
     "pg": "^6.1.5"
