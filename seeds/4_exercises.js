@@ -10,5 +10,8 @@ exports.seed = function(knex, Promise) {
         {id: 3, type: 'Sit ups'},
         {id: 4, type: 'Pull ups'}
       ]);
+    })
+    .then(()=>{
+      return knex.raw("SELECT setval('exercises_id_seq', (SELECT MAX(id) FROM exercises))");
     });
 };

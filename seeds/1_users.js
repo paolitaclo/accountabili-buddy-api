@@ -34,9 +34,20 @@ exports.seed = function(knex, Promise) {
           hashed_password: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS',
           created_at: new Date('2017-04-24 10:23:16 UTC'),
           updated_at: new Date('2017-04-24 10:23:16 UTC')
-        }
+        },
+        {
+          id: 4,
+          user_name: 'ham-dawg',
+          first_name: 'Hamid',
+          last_name: 'Aghdaee',
+          email: 'h@mid.com',
+          hashed_password: '$2a$12$C9AYYmcLVGYlGoO4vSZTPud9ArJwbGRsJ6TUsNULzR48z8fOnTXbS',
+          created_at: new Date('2017-04-24 10:23:16 UTC'),
+          updated_at: new Date('2017-04-24 10:23:16 UTC')
+        },
+
       ]);
-    });
+    })
     .then(()=>{
       return knex.raw("SELECT setval('users_id_seq', (SELECT MAX(id) FROM users))");
     });
