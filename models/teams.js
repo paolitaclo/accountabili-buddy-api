@@ -4,5 +4,7 @@ require('./users');
 
 const Teams = Bookshelf.Model.extend({
   tableName: 'teams',
-  users: () => this.belongsTo('Users')
+  user: () => this.hasMany('Users')
 });
+
+export default Bookshelf.model('Teams', Teams);
