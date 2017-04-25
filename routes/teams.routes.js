@@ -1,5 +1,9 @@
-import express from 'express';
-import knex from '../knex';
+'use strict';
+
+const express = require('express');
+const router = express.Router();
+const knex = require('../knex');
+const Teams = require('../models/teams');
 
 // import node module
 const boom = require('boom');
