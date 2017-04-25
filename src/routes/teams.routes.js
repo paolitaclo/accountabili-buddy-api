@@ -1,21 +1,15 @@
-
-// import node module
 import express from 'express';
 import knex from '../knex';
-// const boom = require('boom');
+
+// import node module
+const boom = require('boom');
 
 const router = express.Router();
 
+
 // GET route to teams API to retrieve list of teams
-router.get('/teams', (_req, res, next) => {
-  knex('teams')
-    .orderBy('name')
-    .then((teams) => {
-      res.send(teams);
-    })
-    .catch((err) => {
-      next(err);
-    });
+router.get('/teams', (req, res, next) => {
+
 });
 
 export default router;
