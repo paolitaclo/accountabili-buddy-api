@@ -2,7 +2,6 @@
 
 const express = require('express');
 const router = express.Router();
-const knex = require('../knex');
 const Users = require('../models/users');
 
 router.route('/users')
