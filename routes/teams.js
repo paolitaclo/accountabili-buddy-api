@@ -66,7 +66,7 @@ router.route('/teams/:id')
         if (!team) {
           throw boom.create(400, 'Team Not Found');
         };
-        team.save({name: req.body.name || user.get('name')});
+        team.save({name: req.body.name || team.get('name')});
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify('Team details updated'));
       })
