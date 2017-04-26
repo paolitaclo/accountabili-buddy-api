@@ -64,8 +64,13 @@ router.route('/teams/:id')
         team.save({
           name: req.body.name || team.get('name')
         })
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(team));
       })
-    })
+      .catch((err) => {
+          next(err);
+      });
+    });
 
 
 
