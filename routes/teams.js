@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const Teams = require('../models/teams');
 
-// GET route to teams API to retrieve list of teams
+
 router.route('/teams')
   // fetch all teams
   .get((req, res, next) => {
@@ -19,10 +19,8 @@ router.route('/teams')
     .catch(function (err) {
       return next(err);
     });
-  });
-
+  })
   // create a new team
-router.route('/teams')
   .post((req, res, next) => {
     console.log('I want to post');
     const { name } = req.body;
@@ -40,6 +38,36 @@ router.route('/teams')
     })
     .catch((err) => next(err));
   });
+
+
+router.route('/teams/:id')
+    // fetch team by id
+    .get((req, res) => {
+      Teams.forge({id: req.params.id})
+      .fetch()
+      .then((team) => {
+        if (!team) {
+          throw boom.create(400, 'Team Not Found');
+        }
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(team));
+      })
+      .catch((err) => {
+        next(err);
+      })
+    })
+    // update team by id
+    .put((req, res, next) => {
+      Teams.forge({id: req.params.id})
+      .fetch({require: true})
+      .then((team) => {
+        team.save({
+          name: req.body.name || team.get('name')
+        })
+      })
+    })
+
+
 
 // UPDATE route to teams API to edit a pre-existing teams
 
