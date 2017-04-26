@@ -4,7 +4,9 @@ require('./users');
 
 const Images = Bookshelf.Model.extend({
   tableName: 'images',
-  user: () => this.belongsTo('Users')
+  user: function () {
+    return this.belongsTo('Users');
+  }
 });
 
 module.exports = Bookshelf.model('Images', Images);
