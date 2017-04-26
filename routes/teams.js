@@ -1,9 +1,9 @@
 'use strict';
 
-const boom = require('boom');
 const express = require('express');
 const router = express.Router();
 const Teams = require('../models/teams');
+const boom = require('boom');
 
 
 router.route('/teams')
@@ -12,7 +12,7 @@ router.route('/teams')
     console.log('hello');
     Teams.fetchAll({ withRelated: ['users'] })
       .then((teamsList) => {
-        // console.log(JSON.stringify(teamsList));
+        console.log(JSON.stringify(teamsList));
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify(teamsList));
       })
@@ -58,22 +58,41 @@ router.route('/teams/:id')
     })
     // update team by id
     .put((req, res, next) => {
+      const id = req.params.id;
+      console.log(`I want to update Team ${id}`)
+      return new Teams({id})
+      .fetch({require: true})
+      .then((team) => {
+        if (!team) {
+          throw boom.create(400, 'Team Not Found');
+        };
+        team.save({name: req.body.name || team.get('name')});
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify('Team details updated'));
+      })
+      .catch((err) => {
+          res.status(500).send({error: true, data: {message: err.message}});
+          next(err);
+      });
+    })
+    // delete a team by id
+    .delete((req, res, next) => {
       Teams.forge({id: req.params.id})
       .fetch({require: true})
       .then((team) => {
-        team.save({
-          name: req.body.name || team.get('name')
-        })
+        if (!team) {
+          throw boom.create(400, 'Team Not Found');
+        }
+        team.destroy()
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(team));
+        res.send(JSON.stringify('Team successfully deleted'));
       })
       .catch((err) => {
-          next(err);
-      });
-    });
+        res.status(500).send({error: true, data: {message: err.message}});
+        next(err);
+      })
+    })
 
 
-
-// UPDATE route to teams API to edit a pre-existing teams
 
 module.exports = router;
