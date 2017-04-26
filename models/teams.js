@@ -5,7 +5,9 @@ require('./users_teams');
 
 const Teams = Bookshelf.Model.extend({
   tableName: 'teams',
-  users: () => this.belongsToMany('Users').through('UsersTeams')
-});
+  users: function() {
+    return this.belongsToMany('Users').through('UsersTeams');
+}
+})
 
 module.exports = Bookshelf.model('Teams', Teams);
