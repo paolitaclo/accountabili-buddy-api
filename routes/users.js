@@ -2,11 +2,16 @@
 
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
 // const knex = require('../knex');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-as-promised');
 const boom = require('boom');
 
+||||||| merged common ancestors
+const knex = require('../knex');
+=======
+>>>>>>> 3233d52016d3915513161df8e93141ee1cc6b02c
 const Users = require('../models/users');
 
 router.route('/users')
