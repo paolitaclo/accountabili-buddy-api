@@ -30,13 +30,13 @@ router.route('/teams')
       return next(boom.create(400, 'Team name must not be blank'));
     }
     Teams.forge({
-      name: name
+      name: req.body.name
     })
     .save()
     .then(function (team) {
       console.log(JSON.stringify(team));
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(teamsList));
+      res.send(JSON.stringify(team));
     })
     .catch((err) => next(err));
   });
