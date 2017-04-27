@@ -11,11 +11,9 @@ const Users = require('../models/users');
 
 router.route('/token')
   .post((req, res, next) => {
-    console.log('im here');
     return Users.where('email', '=', req.body.email)
     .fetch()
     .then((userInfo) => {
-      console.log('this is user info', userInfo);
       const user = JSON.parse(JSON.stringify(userInfo));
       return bcrypt.compare(req.body.password, user.hashed_password);
     })
@@ -35,7 +33,6 @@ router.route('/token')
       });
 
       user.token = token;
-      console.log(user.token);
 
       delete user.user_name;
       delete user.first_name;
