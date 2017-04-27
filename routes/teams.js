@@ -55,7 +55,6 @@ router.route('/teams/:id')
     // update team by id
     .put((req, res, next) => {
       const { id } = req.params;
-      // console.log(`I want to update Team ${id}`)
       return new Teams({ id })
       .fetch({ require: true })
       .then((team) => {
