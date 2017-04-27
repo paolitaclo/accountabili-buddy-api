@@ -22,7 +22,7 @@ describe('TEAMS ROUTES', () => {
           });
   });
 
-  beforeEach((done)=>{
+  beforeEach((done) => {
     knex.seed.run()
             .then(() => {
                 done();
@@ -46,10 +46,13 @@ describe('TEAMS ROUTES', () => {
         .expect('Content-Type', /application\/json/, done);
     });
 
-    it('should respond with array of all equipment type objects', (done) => {
+    it('should respond with array of all teams type objects', (done) => {
       agent
         .get('/teams')
-        .set
+        .set('Accept', 'application/json')
+        .expect([
+          git
+        ])
 
   })
 })
