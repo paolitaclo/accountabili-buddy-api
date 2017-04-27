@@ -37,8 +37,9 @@ router.route('/teams')
 
 router.route('/teams/:id')
     // fetch team by id
-    .get((req, res) => {
-      Teams.forge({ id: req.params.id })
+    .get((req, res, next) => {
+      const { id } = req.params;
+      Teams.forge({ id })
       .fetch()
       .then((team) => {
         if (!team) {
@@ -53,7 +54,7 @@ router.route('/teams/:id')
     })
     // update team by id
     .put((req, res, next) => {
-      const id = req.params.id;
+      const { id } = req.params;
       // console.log(`I want to update Team ${id}`)
       return new Teams({ id })
       .fetch({ require: true })
