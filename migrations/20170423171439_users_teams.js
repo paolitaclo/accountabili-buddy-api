@@ -1,6 +1,6 @@
 exports.up = knex => knex.schema.createTable('users_teams', (table) => {
   table.increments('id').primary();
-  table.integer('user_id').notNullable().references('id').inTable('users');
+  table.integer('user_id').notNullable().references('id').inTable('users').onDelete('CASCADE');
   table.integer('team_id').notNullable().references('id').inTable('teams');
   table.boolean('primary_team').notNullable().defaultTo('true');
 });

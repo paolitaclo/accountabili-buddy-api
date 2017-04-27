@@ -38,3 +38,5 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log("Server starting up on " + port);
 });
+
+module.exports = app;
