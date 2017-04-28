@@ -27,7 +27,7 @@ describe('TEAMS ROUTES', () => {
     });
   });
 
-  describe('GET /teams', () => {
+  xdescribe('GET /teams', () => {
     it('should respond with a status code of 200', (done) => {
       agent
         .get('/teams')
@@ -158,7 +158,7 @@ describe('TEAMS ROUTES', () => {
     // get all teams test
 
     // testing create a new team route
-    describe('POST /teams', () => {
+    xdescribe('POST /teams', () => {
       it('should respond with a status code of 200', (done) => {
         agent
               .post('/teams')
