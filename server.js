@@ -27,9 +27,11 @@ app.use(cookieParser());
 
 const users = require('./routes/users');
 const teams = require('./routes/teams');
+const events = require('./routes/events');
 
 app.use(users);
 app.use(teams);
+app.use(events)
 
 app.use((req, res) => {
   res.sendStatus(404);

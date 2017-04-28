@@ -11,7 +11,6 @@ router.route('/users')
   .get((req, res, next) => {
     Users.fetchAll({ withRelated: ['teams', 'images'] })
     .then((usersList) => {
-      console.log(JSON.stringify(usersList));
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(usersList));
     })
