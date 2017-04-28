@@ -53,7 +53,7 @@ router.route('/users')
   });
 
 router.route('/users/facebook')
-  .get(passport.authenticate('facebook', { failureRedirect: '/' }),
+  .get(passport.authenticate('facebook', { scope: ['email'], failureRedirect: '/' }),
   (req, res) => res.redirect('/profile')
 );
 

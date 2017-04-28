@@ -27,7 +27,9 @@ default:
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:9001/users/facebook/return'
+  callbackURL: 'http://localhost:9001/users/facebook/return',
+  passReqToCallBack: true,
+  profileFields: ['id', 'emails', 'name']
 }, (accessToken, refreshToken, profile, cb) => cb(null, profile)));
 
 passport.serializeUser((user, cb) => {
