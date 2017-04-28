@@ -22,6 +22,7 @@ describe('TESTS FOR TEAMS ROUTES', () => {
       done(err);
     });
   });
+  
   it('should respond to GET /teams with a status code of 200', (done) => {
     agent
       .get('/teams')
