@@ -27,7 +27,7 @@ default:
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:9001/users/facebook/return',
+  callbackURL: 'https://bilibuddy-api.herokuapp.com//users/facebook/return',
   passReqToCallBack: true,
   profileFields: ['id', 'emails', 'name']
 }, (accessToken, refreshToken, profile, cb) => cb(null, profile)));
