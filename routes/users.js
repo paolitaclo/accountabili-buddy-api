@@ -14,11 +14,17 @@ router.route('/users')
   .get((req, res, next) => {
     Users.fetchAll({ withRelated: ['teams', 'images'] })
     .then((usersList) => {
-      console.log(JSON.stringify(usersList));
+      const noPswdUsers = usersList.toJSON();
+      const result = noPswdUsers.map((user) => {
+        delete user.hashed_password;
+        return user;
+      });
+
+      console.log('just result ', result);
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(usersList));
+      res.send(JSON.stringify(result));
     })
-    .catch((err) => next(err));
+    .catch(err => next(err));
   })
   .post((req, res, next) => {
     const user_name = req.body.userName;
@@ -31,7 +37,7 @@ router.route('/users')
       return next(boom.create(400, 'Field must not be blank'));
     }
     if (!password || password.length < 6) {
-      return next(boom.create('Password must be at least 6 characters long'));
+      return next(boom.create(400, 'Password must be at least 6 characters long'));
     }
     bcrypt.hash(password, 12)
     .then((hashed_password) => {
@@ -44,13 +50,36 @@ router.route('/users')
       })
       .save()
       .then((user) => {
-        let u = JSON.parse(JSON.stringify(user));
+        let u = user.toJSON();
         delete u.hashed_password;
         res.setHeader('Content-Type', 'application/json');
         res.send(u);
       });
-    });
+    })
+    .catch(err => next(err));
   });
+
+router.route('/users/:id')
+.get((req, res, next) => {
+  Users.where('id', '=', req.params.id)
+  .fetch()
+  .then((user) => {
+    if (!user) {
+      return next(boom.create(400, 'Used not found'));
+    } else {
+      return Users.where('id', '=', req.params.id).fetch();
+    }
+  })
+  .then((userFound) => {
+    let u = userFound.toJSON();
+    delete u.hashed_password;
+    // delete userFound.email;
+    console.log('this is user', u);
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(u));
+  })
+  .catch(err => next(err));
+});
 
 router.route('/users/facebook')
   .get(passport.authenticate('facebook', { scope: ['email'], failureRedirect: '/' }),

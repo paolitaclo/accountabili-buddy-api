@@ -55,11 +55,13 @@ const users = require('./routes/users');
 const profile = require('./routes/profile');
 const teams = require('./routes/teams');
 const token = require('./routes/token');
+const tokenOauth = require('./routes/tokenOauth');
 
 
 app.use(users);
 app.use(teams);
 app.use(token);
+app.use(tokenOauth);
 app.use(profile);
 
 app.use((req, res) => {
