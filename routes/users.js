@@ -20,7 +20,6 @@ router.route('/users')
         return user;
       });
 
-      console.log('just result ', result);
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(result));
     })
@@ -73,8 +72,7 @@ router.route('/users/:id')
   .then((userFound) => {
     let u = userFound.toJSON();
     delete u.hashed_password;
-    // delete userFound.email;
-    console.log('this is user', u);
+
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(u));
   })
