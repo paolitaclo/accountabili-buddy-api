@@ -20,7 +20,6 @@ router.route('/users')
         return user;
       });
 
-      console.log('just result ', result);
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(result));
     })
@@ -66,15 +65,15 @@ router.route('/users/:id')
   .then((user) => {
     if (!user) {
       return next(boom.create(400, 'Used not found'));
-    } else {
-      return Users.where('id', '=', req.params.id).fetch();
     }
+    return Users.where('id', '=', req.params.id).fetch({
+      withRelated: ['teams', 'images']
+    });
   })
   .then((userFound) => {
     let u = userFound.toJSON();
     delete u.hashed_password;
-    // delete userFound.email;
-    console.log('this is user', u);
+
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(u));
   })
