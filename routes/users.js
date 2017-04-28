@@ -1,20 +1,29 @@
 'use strict';
 
 const express = require('express');
+
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-as-promised');
 const boom = require('boom');
+const passport = require('passport');
+
 const Users = require('../models/users');
 
 router.route('/users')
   .get((req, res, next) => {
     Users.fetchAll({ withRelated: ['teams', 'images'] })
     .then((usersList) => {
+      const noPswdUsers = usersList.toJSON();
+      const result = noPswdUsers.map((user) => {
+        delete user.hashed_password;
+        return user;
+      });
+
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(usersList));
+      res.send(JSON.stringify(result));
     })
-    .catch((err) => next(err));
+    .catch(err => next(err));
   })
   .post((req, res, next) => {
     const user_name = req.body.userName;
@@ -27,7 +36,7 @@ router.route('/users')
       return next(boom.create(400, 'Field must not be blank'));
     }
     if (!password || password.length < 6) {
-      return next(boom.create('Password must be at least 6 characters long'));
+      return next(boom.create(400, 'Password must be at least 6 characters long'));
     }
     bcrypt.hash(password, 12)
     .then((hashed_password) => {
@@ -40,11 +49,45 @@ router.route('/users')
       })
       .save()
       .then((user) => {
-        let u = JSON.parse(JSON.stringify(user));
+        let u = user.toJSON();
         delete u.hashed_password;
         res.setHeader('Content-Type', 'application/json');
         res.send(u);
       });
-    });
+    })
+    .catch(err => next(err));
   });
+
+router.route('/users/:id')
+.get((req, res, next) => {
+  Users.where('id', '=', req.params.id)
+  .fetch()
+  .then((user) => {
+    if (!user) {
+      return next(boom.create(400, 'Used not found'));
+    }
+    return Users.where('id', '=', req.params.id).fetch({
+      withRelated: ['teams', 'images']
+    });
+  })
+  .then((userFound) => {
+    let u = userFound.toJSON();
+    delete u.hashed_password;
+
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(u));
+  })
+  .catch(err => next(err));
+});
+
+router.route('/users/facebook')
+  .get(passport.authenticate('facebook', { scope: ['email'], failureRedirect: '/' }),
+  (req, res) => res.redirect('/profile')
+);
+
+router.route('/users/facebook/return')
+  .get(passport.authenticate('facebook', { failureRedirect: '/' }),
+  (req, res) => res.redirect('/profile')
+  );
+
 module.exports = router;
