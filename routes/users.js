@@ -65,9 +65,10 @@ router.route('/users/:id')
   .then((user) => {
     if (!user) {
       return next(boom.create(400, 'Used not found'));
-    } else {
-      return Users.where('id', '=', req.params.id).fetch();
     }
+    return Users.where('id', '=', req.params.id).fetch({
+      withRelated: ['teams', 'images']
+    });
   })
   .then((userFound) => {
     let u = userFound.toJSON();
