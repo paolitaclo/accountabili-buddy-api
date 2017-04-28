@@ -1,10 +1,13 @@
 'use strict';
 
 const express = require('express');
+
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-as-promised');
 const boom = require('boom');
+const passport = require('passport');
+
 const Users = require('../models/users');
 
 router.route('/users')
@@ -48,4 +51,15 @@ router.route('/users')
       });
     });
   });
+
+router.route('/users/facebook')
+  .get(passport.authenticate('facebook', { failureRedirect: '/' }),
+  (req, res) => res.redirect('/profile')
+);
+
+router.route('/users/facebook/return')
+  .get(passport.authenticate('facebook', { failureRedirect: '/' }),
+  (req, res) => res.redirect('/profile')
+  );
+
 module.exports = router;
