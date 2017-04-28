@@ -1,7 +1,7 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
-const {describe, it} = require('mocha');
+const { describe, it } = require('mocha');
 const request = require('supertest');
 const knex = require('../knex');
 const server = require('../server');
