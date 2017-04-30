@@ -95,7 +95,9 @@ describe('USERS ROUTES', () => {
             updated_at: new Date('2017-04-24 10:22:16 UTC'),
             teams: [
               {
-
+                id: 1,
+                name: 'g42',
+                team_image_url: 
               }
             ],
             images: [
