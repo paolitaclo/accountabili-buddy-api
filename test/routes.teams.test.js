@@ -1,7 +1,7 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
-const {describe, it} = require('mocha');
+const { describe, it } = require('mocha');
 const request = require('supertest');
 const knex = require('../knex');
 const server = require('../server');
@@ -22,6 +22,7 @@ describe('TESTS FOR TEAMS ROUTES', () => {
       done(err);
     });
   });
+  
   it('should respond to GET /teams with a status code of 200', (done) => {
     agent
       .get('/teams')
