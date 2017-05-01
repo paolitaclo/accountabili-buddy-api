@@ -9,16 +9,17 @@ require('./users_exercises_images');
 const Users = Bookshelf.Model.extend({
   tableName: 'users',
   hasTimestamps: true,
-  teams: function() {
+  hidden: ['hashed_password'],
+  teams: function () {
     return this.belongsToMany('Teams').through('UsersTeams');
   },
-  images: function() {
+  images: function () {
     return this.hasMany('Images');
   },
-  exercises: function() {
+  exercises: function () {
     return this.belongsToMany('Exercises').through('UsersExercisesImages');
   },
-  usersExercisesImages: function() {
+  usersExercisesImages: function () {
     return this.hasMany('UsersExercisesImages');
   }
   // usersExercisesImages: () => this.hasMany('UsersExercisesImages')

@@ -14,14 +14,8 @@ router.route('/users')
   .get((req, res, next) => {
     Users.fetchAll({ withRelated: ['teams', 'images'] })
     .then((usersList) => {
-      const noPswdUsers = usersList.toJSON();
-      const result = noPswdUsers.map((user) => {
-        delete user.hashed_password;
-        return user;
-      });
-
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(result));
+      res.send(JSON.stringify(usersList));
     })
     .catch(err => next(err));
   })
@@ -49,10 +43,8 @@ router.route('/users')
       })
       .save()
       .then((user) => {
-        let u = user.toJSON();
-        delete u.hashed_password;
         res.setHeader('Content-Type', 'application/json');
-        res.send(u);
+        res.send(JSON.stringify(user));
       });
     })
     .catch(err => next(err));
@@ -71,11 +63,8 @@ router.route('/users/:id')
     });
   })
   .then((userFound) => {
-    let u = userFound.toJSON();
-    delete u.hashed_password;
-
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(u));
+    res.end(JSON.stringify(userFound));
   })
   .catch(err => next(err));
 });

@@ -11,6 +11,7 @@ const Users = require('../models/users');
 
 router.route('/token')
   .post((req, res, next) => {
+    console.log('im here');
     return Users.where('email', '=', req.body.email)
     .fetch()
     .then((userInfo) => {
@@ -49,4 +50,5 @@ router.route('/token')
       next(err);
     });
   });
+
 module.exports = router;
