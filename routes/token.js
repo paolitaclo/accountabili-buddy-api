@@ -11,12 +11,11 @@ const Users = require('../models/users');
 
 router.route('/token')
   .post((req, res, next) => {
-    console.log('im here');
     return Users.where('email', '=', req.body.email)
     .fetch()
     .then((userInfo) => {
-      const user = JSON.parse(JSON.stringify(userInfo));
-      return bcrypt.compare(req.body.password, user.hashed_password);
+      const hashedPassword = userInfo.get('hashed_password');
+      return bcrypt.compare(req.body.password, hashedPassword);
     })
     .then((passwordChecked) => {
       if (!passwordChecked) {

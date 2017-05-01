@@ -51,23 +51,42 @@ router.route('/users')
   });
 
 router.route('/users/:id')
-.get((req, res, next) => {
-  Users.where('id', '=', req.params.id)
-  .fetch()
-  .then((user) => {
-    if (!user) {
-      return next(boom.create(400, 'Used not found'));
-    }
-    return Users.where('id', '=', req.params.id).fetch({
-      withRelated: ['teams', 'images']
-    });
+  .get((req, res, next) => {
+    Users.where('id', '=', req.params.id)
+    .fetch()
+    .then((user) => {
+      if (!user) {
+        return next(boom.create(400, 'Used not found'));
+      }
+      return Users.where('id', '=', req.params.id).fetch({
+        withRelated: ['teams', 'images']
+      });
+    })
+    .then((userFound) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(userFound));
+    })
+    .catch(err => next(err));
   })
-  .then((userFound) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(userFound));
-  })
-  .catch(err => next(err));
-});
+  .patch((req, res, next) => {
+    const id = req.params.id;
+    return new Users({ id })
+    .fetch()
+    .then((user) => {
+      console.log(user);
+      if (!user) {
+        throw boom.create(400, 'User Not Found');
+      }
+      return user.save(req.body, { patch: true });
+    })
+    .then((userUpdated) => {
+      const u = userUpdated.toJSON();
+      console.log('updated: ', u);
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(u));
+    })
+    .catch(err => next(err));
+  });
 
 router.route('/users/facebook')
   .get(passport.authenticate('facebook', { scope: ['email'], failureRedirect: '/' }),

@@ -32,20 +32,6 @@ describe('TESTS FOR USERS ROUTES', () => {
       });
   });
 
-  // describe('GET /users', () => {
-    // it('should respond with a status of 200', (done) => {
-    //   agent
-    //     .get('/users')
-    //     .expect(200, done);
-    // });
-    //
-    // it('should respond with a Content-Type of application/json', (done) => {
-    //   agent
-    //     .get('/users')
-    //     .set('Accept', 'application/json')
-    //     .expect('Content-Type', /application\/json/, done);
-    // });
-
   it('should respond FROM get/users with an array of all users with their relationships', (done) => {
     agent
     .get('/users').set('Accept', 'application/json')
