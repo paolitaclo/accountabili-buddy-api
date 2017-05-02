@@ -69,6 +69,20 @@ app.use((req, res) => {
   res.sendStatus(404);
 });
 
+// eslint-disable-next-line max-params
+app.use((err, _req, res, _next) => {
+  if (err.output && err.output.statusCode) {
+    return res
+      .status(err.output.statusCode)
+      .set('Content-Type', 'text/plain')
+      .send(err.message);
+  }
+
+  // eslint-disable-next-line no-console
+  console.error(err.stack);
+  return res.sendStatus(500);
+});
+
 app.listen(port, () => {
   console.log('Server starting up on ', port);
 });

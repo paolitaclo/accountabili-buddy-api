@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 const express = require('express');
 
@@ -12,16 +12,10 @@ const Users = require('../models/users');
 
 router.route('/users')
   .get((req, res, next) => {
-    Users.fetchAll({ withRelated: ['teams', 'images'] })
+    Users.fetchAll({ withRelated: ['taggedImages', 'teams', 'ownedImages'] })
     .then((usersList) => {
-      const noPswdUsers = usersList.toJSON();
-      const result = noPswdUsers.map((user) => {
-        delete user.hashed_password;
-        return user;
-      });
-
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(result));
+      res.send(JSON.stringify(usersList));
     })
     .catch(err => next(err));
   })
@@ -49,36 +43,50 @@ router.route('/users')
       })
       .save()
       .then((user) => {
-        let u = user.toJSON();
-        delete u.hashed_password;
         res.setHeader('Content-Type', 'application/json');
-        res.send(u);
+        res.send(JSON.stringify(user));
       });
     })
     .catch(err => next(err));
   });
 
 router.route('/users/:id')
-.get((req, res, next) => {
-  Users.where('id', '=', req.params.id)
-  .fetch()
-  .then((user) => {
-    if (!user) {
-      return next(boom.create(400, 'Used not found'));
-    }
-    return Users.where('id', '=', req.params.id).fetch({
-      withRelated: ['teams', 'images']
-    });
+  .get((req, res, next) => {
+    Users.where('id', '=', req.params.id)
+    .fetch()
+    .then((user) => {
+      if (!user) {
+        return next(boom.create(400, 'Used not found'));
+      }
+      return Users.where('id', '=', req.params.id).fetch({
+        withRelated: ['teams', 'taggedImages', 'ownedImages']
+      });
+    })
+    .then((userFound) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(userFound));
+    })
+    .catch(err => next(err));
   })
-  .then((userFound) => {
-    let u = userFound.toJSON();
-    delete u.hashed_password;
-
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(u));
-  })
-  .catch(err => next(err));
-});
+  .patch((req, res, next) => {
+    const id = req.params.id;
+    return new Users({ id })
+    .fetch()
+    .then((user) => {
+      console.log(user);
+      if (!user) {
+        throw boom.create(400, 'User Not Found');
+      }
+      return user.save(req.body, { patch: true });
+    })
+    .then((userUpdated) => {
+      const u = userUpdated.toJSON();
+      console.log('updated: ', u);
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(u));
+    })
+    .catch(err => next(err));
+  });
 
 router.route('/users/facebook')
   .get(passport.authenticate('facebook', { scope: ['email'], failureRedirect: '/' }),

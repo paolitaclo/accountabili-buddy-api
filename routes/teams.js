@@ -23,15 +23,20 @@ router.route('/teams')
     if (!name || !name.trim()) {
       return next(boom.create(400, 'Team name must not be blank'));
     }
+
     return Teams.forge({
       name: req.body.name,
+      team_image_url: req.body.teamImageUrl
     })
     .save()
     .then((team) => {
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(team));
     })
-    .catch(err => next(err));
+    .catch((err) => {
+      console.log('status ', err);
+      next(err);
+    });
   });
 
 
