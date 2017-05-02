@@ -8,16 +8,7 @@ module.exports = [
     email: 'klamklam@gahbo.com',
     created_at: '2017-04-24T10:21:16.000Z',
     updated_at: '2017-04-24T10:21:16.000Z',
-    images: [
-      {
-        id: 1,
-        user_id: 1,
-        caption: 'Woooo pushup hour at the gSchool',
-        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
-        created_at: '2017-04-24T10:23:16.000Z',
-        updated_at: '2017-04-24T10:23:16.000Z'
-      }
-    ],
+    taggedImages: [],
     teams: [
       {
         id: 1,
@@ -29,6 +20,18 @@ module.exports = [
         _pivot_user_id: 1,
         _pivot_team_id: 1
       }
+    ],
+    ownedImages: [
+      {
+        id: 1,
+        caption: 'Woooo pushup hour at the gSchool',
+        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
+        created_at: '2017-04-24T10:23:16.000Z',
+        updated_at: '2017-04-24T10:23:16.000Z',
+        _pivot_id: 1,
+        _pivot_user_id: 1,
+        _pivot_image_id: 1
+      }
     ]
   },
   {
@@ -37,17 +40,18 @@ module.exports = [
     first_name: 'Paola',
     last_name: 'Claros',
     profile_image_url: 'https://pbs.twimg.com/profile_images/832357648884342784/ZDEXxcfN_400x400.jpg',
-    email: 'paolita@claros.com',
+    email: 'paolita.claros+test@gmail.com',
     created_at: '2017-04-24T10:22:16.000Z',
     updated_at: '2017-04-24T10:22:16.000Z',
-    images: [
+    taggedImages: [
       {
-        id: 2,
-        user_id: 2,
-        caption: 'Kevin is a tank',
-        imageUrl: 'https://www.tanks-encyclopedia.com/modern/Italy/Ariete/Ariete-C1.png',
+        id: 1,
+        caption: 'Woooo pushup hour at the gSchool',
+        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
         created_at: '2017-04-24T10:23:16.000Z',
-        updated_at: '2017-04-24T10:23:16.000Z'
+        updated_at: '2017-04-24T10:23:16.000Z',
+        _pivot_user_id: 2,
+        _pivot_image_id: 1
       }
     ],
     teams: [
@@ -61,6 +65,18 @@ module.exports = [
         _pivot_user_id: 2,
         _pivot_team_id: 1
       }
+    ],
+    ownedImages: [
+      {
+        id: 1,
+        caption: 'Woooo pushup hour at the gSchool',
+        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
+        created_at: '2017-04-24T10:23:16.000Z',
+        updated_at: '2017-04-24T10:23:16.000Z',
+        _pivot_id: 2,
+        _pivot_user_id: 2,
+        _pivot_image_id: 1
+      }
     ]
   },
   {
@@ -72,14 +88,15 @@ module.exports = [
     email: 'mez@lychee.com',
     created_at: '2017-04-24T10:23:16.000Z',
     updated_at: '2017-04-24T10:23:16.000Z',
-    images: [
+    taggedImages: [
       {
-        id: 3,
-        user_id: 3,
-        caption: 'Paola is crossfit Queen',
-        imageUrl: 'https://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg',
+        id: 1,
+        caption: 'Woooo pushup hour at the gSchool',
+        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
         created_at: '2017-04-24T10:23:16.000Z',
-        updated_at: '2017-04-24T10:23:16.000Z'
+        updated_at: '2017-04-24T10:23:16.000Z',
+        _pivot_user_id: 3,
+        _pivot_image_id: 1
       }
     ],
     teams: [
@@ -93,6 +110,18 @@ module.exports = [
         _pivot_user_id: 3,
         _pivot_team_id: 1
       }
+    ],
+    ownedImages: [
+      {
+        id: 1,
+        caption: 'Woooo pushup hour at the gSchool',
+        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
+        created_at: '2017-04-24T10:23:16.000Z',
+        updated_at: '2017-04-24T10:23:16.000Z',
+        _pivot_id: 3,
+        _pivot_user_id: 3,
+        _pivot_image_id: 1
+      }
     ]
   },
   {
@@ -104,7 +133,17 @@ module.exports = [
     email: 'h@mid.com',
     created_at: '2017-04-24T10:23:16.000Z',
     updated_at: '2017-04-24T10:23:16.000Z',
-    images: [],
+    taggedImages: [
+      {
+        id: 1,
+        caption: 'Woooo pushup hour at the gSchool',
+        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
+        created_at: '2017-04-24T10:23:16.000Z',
+        updated_at: '2017-04-24T10:23:16.000Z',
+        _pivot_user_id: 4,
+        _pivot_image_id: 1
+      }
+    ],
     teams: [
       {
         id: 1,
@@ -136,6 +175,44 @@ module.exports = [
         _pivot_user_id: 4,
         _pivot_team_id: 3
       }
+    ],
+    ownedImages: [
+      {
+        id: 1,
+        caption: 'Woooo pushup hour at the gSchool',
+        imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
+        created_at: '2017-04-24T10:23:16.000Z',
+        updated_at: '2017-04-24T10:23:16.000Z',
+        _pivot_id: 4,
+        _pivot_user_id: 4,
+        _pivot_image_id: 1
+      }
     ]
+  },
+  {
+    id: 5,
+    user_name: 'lunalunera',
+    first_name: 'Luna',
+    last_name: 'Claros',
+    profile_image_url: 'https://www.instagram.com/p/BOnxqlvhtcO/?hl=en',
+    email: 'homecastellanos@gmail.com',
+    created_at: '2017-04-24T10:23:16.000Z',
+    updated_at: '2017-04-24T10:23:16.000Z',
+    taggedImages: [],
+    teams: [],
+    ownedImages: []
+  },
+  {
+    id: 6,
+    user_name: 'nicocl',
+    first_name: 'Nicolas',
+    last_name: 'Claros',
+    profile_image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.pngn',
+    email: 'n_claros@hotmail.com',
+    created_at: '2017-04-24T10:23:16.000Z',
+    updated_at: '2017-04-24T10:23:16.000Z',
+    taggedImages: [],
+    teams: [],
+    ownedImages: []
   }
 ];

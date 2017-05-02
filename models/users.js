@@ -1,28 +1,26 @@
 const Bookshelf = require('../bookshelf');
 
 require('./teams');
-require('./users_teams');
+require('./teams_users');
 require('./images');
-require('./exercises');
-require('./users_exercises_images');
+require('./events');
 
 const Users = Bookshelf.Model.extend({
   tableName: 'users',
   hasTimestamps: true,
   hidden: ['hashed_password'],
   teams: function () {
-    return this.belongsToMany('Teams').through('UsersTeams');
+    return this.belongsToMany('Teams').through('TeamsUsers');
   },
-  images: function () {
-    return this.hasMany('Images');
+  taggedImages: function () {
+    return this.belongsToMany('Images');
   },
-  exercises: function () {
-    return this.belongsToMany('Exercises').through('UsersExercisesImages');
+  ownedImages: function () {
+    return this.belongsToMany('Images').through('Events');
   },
-  usersExercisesImages: function () {
-    return this.hasMany('UsersExercisesImages');
+  events: function () {
+    return this.hasMany('Events');
   }
-  // usersExercisesImages: () => this.hasMany('UsersExercisesImages')
 });
 
 module.exports = Bookshelf.model('Users', Users);

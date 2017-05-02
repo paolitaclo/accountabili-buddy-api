@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 const express = require('express');
 
@@ -12,7 +12,7 @@ const Users = require('../models/users');
 
 router.route('/users')
   .get((req, res, next) => {
-    Users.fetchAll({ withRelated: ['teams', 'images'] })
+    Users.fetchAll({ withRelated: ['taggedImages', 'teams', 'ownedImages'] })
     .then((usersList) => {
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(usersList));
@@ -59,7 +59,7 @@ router.route('/users/:id')
         return next(boom.create(400, 'Used not found'));
       }
       return Users.where('id', '=', req.params.id).fetch({
-        withRelated: ['teams', 'images']
+        withRelated: ['teams', 'taggedImages', 'ownedImages']
       });
     })
     .then((userFound) => {

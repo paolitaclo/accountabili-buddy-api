@@ -24,7 +24,7 @@ module.exports = [
         first_name: 'Paola',
         last_name: 'Claros',
         profile_image_url: 'https://pbs.twimg.com/profile_images/832357648884342784/ZDEXxcfN_400x400.jpg',
-        email: 'paolita@claros.com',
+        email: 'paolita.claros+test@gmail.com',
         created_at: '2017-04-24T10:22:16.000Z',
         updated_at: '2017-04-24T10:22:16.000Z',
         _pivot_id: 2,

@@ -7,14 +7,15 @@ module.exports = {
   email: 'mez@lychee.com',
   created_at: '2017-04-24T10:23:16.000Z',
   updated_at: '2017-04-24T10:23:16.000Z',
-  images: [
+  taggedImages: [
     {
-      id: 3,
-      user_id: 3,
-      caption: 'Paola is crossfit Queen',
-      imageUrl: 'https://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg',
+      id: 1,
+      caption: 'Woooo pushup hour at the gSchool',
+      imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
       created_at: '2017-04-24T10:23:16.000Z',
-      updated_at: '2017-04-24T10:23:16.000Z'
+      updated_at: '2017-04-24T10:23:16.000Z',
+      _pivot_user_id: 3,
+      _pivot_image_id: 1
     }
   ],
   teams: [
@@ -27,6 +28,18 @@ module.exports = {
       _pivot_id: 3,
       _pivot_user_id: 3,
       _pivot_team_id: 1
+    }
+  ],
+  ownedImages: [
+    {
+      id: 1,
+      caption: 'Woooo pushup hour at the gSchool',
+      imageUrl: 'https://www.rd.com/wp-content/uploads/sites/2/2016/04/01-cat-wants-to-tell-you-laptop.jpg',
+      created_at: '2017-04-24T10:23:16.000Z',
+      updated_at: '2017-04-24T10:23:16.000Z',
+      _pivot_id: 3,
+      _pivot_user_id: 3,
+      _pivot_image_id: 1
     }
   ]
 };

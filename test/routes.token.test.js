@@ -28,12 +28,22 @@ describe('TESTS FOR TOKEN ROUTES', () => {
       });
   });
 
-  it('should handle an umatched email for a POTS /token and return a status code of 400', (done) => {
+  it('should respond to a POTS /token with a valid email and password', (done) => {
     agent
       .post('/token').set('Accept', 'application/json')
       .send({
-        email: 'klamklam@gahbo.com'
+        email: 'homecastellanos@gmail.com',
+        password: 'lunalunita'
       })
-      .expect(400, done);
+      .expect(200, done);
   });
-});
+//   it('should respond to a POTS /token with an invalid email and a valid password and a status code of 400', (done) => {
+//     agent
+//       .post('/token').set('Accept', 'application/json')
+//       .send({
+//         email: 'homecastellanos@gmail.com',
+//         password: 'lunalun'
+//       })
+//       .expect(400, done);
+//   });
+// });

@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const UsersExercisesImages = require('../models/users_exercises_images');
+const UsersExercisesImages = require('../models/events');
 
 router.route('/events')
   .get((req, res, next) => {
