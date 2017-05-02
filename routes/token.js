@@ -10,44 +10,41 @@ const cert = process.env.JWT_SECRET;
 const Users = require('../models/users');
 
 router.route('/token')
-  .post((req, res, next) => {
-    return Users.where('email', '=', req.body.email)
+  .post((req, res, next) => Users.where('email', '=', req.body.email)
     .fetch()
     .then((userInfo) => {
       const hashedPassword = userInfo.get('hashed_password');
       return bcrypt.compare(req.body.password, hashedPassword);
     })
-    .then((passwordChecked) => {
-      if (!passwordChecked) {
-        return next(boom.create(400, 'Bad password or email'));
-      }
-      return Users.where('email', '=', req.body.email);
-    })
+    .then(() => Users.where('email', '=', req.body.email).fetch()
+    )
     .then((user) => {
+      const userToJSON = user.toJSON();
       const claim = {
-        userId: user.id
+        userId: userToJSON.id,
+        // email: user.email
       };
 
       const token = JWT.sign(claim, cert, {
         expiresIn: '7 days'
       });
 
-      user.token = token;
+      userToJSON.token = token;
 
-      delete user.user_name;
-      delete user.first_name;
-      delete user.last_name;
-      delete user.hashed_password;
-      delete user.created_at;
-      delete user.updated_at;
+      delete userToJSON.user_name;
+      delete userToJSON.first_name;
+      delete userToJSON.last_name;
+      delete userToJSON.profile_image_url;
+      delete userToJSON.created_at;
+      delete userToJSON.updated_at;
 
       res.set('Token', token);
       res.set('Content-Type', 'application/json');
-      res.status(200).json(user);
+      res.status(200).json(userToJSON);
     })
     .catch((err) => {
       next(err);
-    });
-  });
+    })
+  );
 
 module.exports = router;
