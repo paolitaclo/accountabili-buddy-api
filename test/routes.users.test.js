@@ -158,7 +158,14 @@ describe('USERS ROUTES', () => {
             updated_at: new Date('2017-04-24 10:23:16 UTC'),
             teams: [
               {
-
+                id: 1,
+                name: "g42",
+                team_image_url: "https://media.glassdoor.com/sqll/825775/galvanize-squarelogo-1429039425588.png",
+                created_at: "2016-06-26T14:26:16.000Z",
+                updated_at: "2016-06-26T14:26:16.000Z",
+                _pivot_id: 4,
+                _pivot_user_id: 4,
+                _pivot_team_id: 1
               }
             ],
             images: [
