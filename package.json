@@ -5,8 +5,10 @@
   "main": "server.js",
   "dependencies": {
     "bcrypt-as-promised": "^1.1.0",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "bookshelf": "^0.10.3",
+    "bookshelf-transaction-manager": "^0.2.4",
     "boom": "^4.3.1",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",

@@ -1,12 +1,12 @@
 const Bookshelf = require('../bookshelf');
 
 require('./users');
-require('./users_teams');
+require('./teams_users');
 
 const Teams = Bookshelf.Model.extend({
   tableName: 'teams',
   users: function() {
-    return this.belongsToMany('Users').through('UsersTeams');
+    return this.belongsToMany('Users').through('TeamsUsers');
   }
 });
 
