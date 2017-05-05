@@ -45,7 +45,7 @@ router.route('/teams/:id')
     .get((req, res, next) => {
       const { id } = req.params;
       Teams.forge({ id })
-      .fetch()
+      .fetch({ withRelated: ['users'] })
       .then((team) => {
         if (!team) {
           throw boom.create(400, 'Team Not Found');
