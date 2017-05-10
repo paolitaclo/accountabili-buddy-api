@@ -42,7 +42,7 @@ exports.seed = (knex) => {
         id: 5,
         image_id: 1,
         user_id: 1,
-        reps: 45,
+        reps: 40,
         team_id: 1,
         created_at: new Date('2017-04-24 10:22:16 UTC'),
         updated_at: new Date('2017-04-24 10:22:16 UTC')

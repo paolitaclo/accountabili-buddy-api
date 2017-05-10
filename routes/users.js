@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt-as-promised');
 const boom = require('boom');
 const passport = require('passport');
 
+const knex = require('../knex');
 const Users = require('../models/users');
 const Events = require('../models/events');
 
@@ -110,26 +111,20 @@ router.route('/users/:id')
 
 router.route('/users/:id/score')
   .get((req, res, next) => {
-    Events.where('user_id', '=', req.params.id)
-    .fetch()
+    knex('events').where('user_id', req.params.id)
     .then((userInEvent) => {
       if (!userInEvent) {
         return next(boom.create(400, 'User don\'t have events yet'));
       }
-      return Events.where('user_id', '=', req.params.id).fetchAll();
+      return knex('events').sum('reps').where('user_id', req.params.id).first();
     })
-    .then((userById) => {
-      const userFiltered = userById.toJSON();
-      const allTimeScore = userFiltered.reduce((acc, obj) => acc + obj.reps, 0);
-      const result = Object.assign({}, { allTimeScore });
+    .then((allTimeScore) => {
       res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify(result));
+      res.send(allTimeScore);
     })
     .catch(err => next(err));
   });
 
-
-// let x = arr.reduce(function (acc, obj) { return acc + obj.reps; }, 0);
 router.route('/users/facebook')
   .get(passport.authenticate('facebook', { scope: ['email'], failureRedirect: '/' }),
   (req, res) => res.redirect('/profile')
