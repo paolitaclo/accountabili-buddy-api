@@ -4,7 +4,8 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/bilibuddy_dev'
+    connection: 'postgres://localhost/bilibuddy_dev',
+    debug: true
   },
   test: {
     client: 'pg',

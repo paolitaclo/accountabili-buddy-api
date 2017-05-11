@@ -111,7 +111,7 @@ router.route('/users/:id')
 
 router.route('/users/:id/score')
   .get((req, res, next) => {
-    knex('events').where('user_id', req.params.id)
+    knex('events').where('user_id', req.params.id).first()
     .then((userInEvent) => {
       if (!userInEvent) {
         return next(boom.create(400, 'User don\'t have events yet'));

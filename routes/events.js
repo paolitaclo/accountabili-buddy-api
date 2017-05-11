@@ -21,7 +21,7 @@ router.route('/events')
   })
   // create a new events
   .post((req, res, next) => {
-    const { user_id, imageUrl, caption, reps } = req.body;
+    const { user_id, imageUrl, caption, reps, team_id } = req.body;
     bookshelf.transaction(t =>
     Images.forge({
       imageUrl,
@@ -35,7 +35,8 @@ router.route('/events')
       return Events.forge({
         image_id: idImage,
         user_id,
-        reps
+        reps,
+        team_id
       }).save(null, { transacting: t });
     }))
     .then((event) => {
