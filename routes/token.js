@@ -25,6 +25,7 @@ router.route('/token')
         // email: user.email
       };
 
+      // this code looks a lot like the code in tokenOauth.js... FUNCTION?
       const token = JWT.sign(claim, cert, {
         expiresIn: '7 days'
       });
