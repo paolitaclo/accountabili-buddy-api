@@ -81,7 +81,7 @@ router.route('/users/:id')
     .fetch()
     .then((user) => {
       if (!user) {
-        return next(boom.create(400, 'Used not found'));
+        return next(boom.create(400, 'User not found'));
       }
       return Users.where('id', '=', req.params.id).fetch({
         withRelated: ['teams', 'taggedImages', 'ownedImages']
