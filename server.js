@@ -12,6 +12,7 @@ const morgan = require('morgan');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 
+// you could probably use an if/else here instead of a switch/case. 
 switch (app.get('env')) {
 case 'development':
   app.use(morgan('dev'));
