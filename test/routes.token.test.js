@@ -37,7 +37,7 @@ describe('TESTS FOR TOKEN ROUTES', () => {
       })
       .expect(200, done);
   });
-//   it('should respond to a POTS /token with an invalid email and a valid password and a status code of 400', (done) => {
+// it('should respond to a POTS /token with an invalid email and a valid password and a status code of 400', (done) => {
 //     agent
 //       .post('/token').set('Accept', 'application/json')
 //       .send({
@@ -46,4 +46,4 @@ describe('TESTS FOR TOKEN ROUTES', () => {
 //       })
 //       .expect(400, done);
 //   });
-// });
+});
