@@ -96,22 +96,22 @@ router.route('/teams/:id')
     });
 
     // filter resps/user between dates by team
-router.route('/teams/:id/score')
-  .get((req, res, next) => {
-    const teamId = req.params.id;
-    const { start, end } = req.query;
-    knex
-    .select(
-      knex.raw('SUM(reps)'), 'user_id')
-    .from('events')
-    .whereBetween('created_at', [start, end])
-    .andWhere('team_id', teamId)
-    .groupBy('user_id')
-    .then((result) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.send(result);
-    })
-    .catch(err => next(err));
-  });
+// router.route('/teams/:id/score')
+//   .get((req, res, next) => {
+//     const teamId = req.params.id;
+//     const { start, end } = req.query;
+//     knex
+//     .select(
+//       knex.raw('SUM(reps)'), 'user_id')
+//     .from('events')
+//     .whereBetween('created_at', [start, end])
+//     .andWhere('team_id', teamId)
+//     .groupBy('user_id')
+//     .then((result) => {
+//       res.setHeader('Content-Type', 'application/json');
+//       res.send(result);
+//     })
+//     .catch(err => next(err));
+//   });
 
 module.exports = router;

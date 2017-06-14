@@ -93,17 +93,34 @@ describe('TESTS FOR TEAMS ROUTES', () => {
     .expect(getTeamById, done)
   })
 
-  it('should return from PUT /teams/:id with the requested team', (done) => {
+  it('should return a status code of 404 from GET /teams/:id when the team_id does not exist', (done) => {
+    agent.get('/teams/9000').expect(400, done)
+  })
+
+  it('should return from PUT /teams/:id with a string "Team details updated"', (done) => {
     agent.put('/teams/1').set('Accept', 'application/json')
-    // .send()
+    .send({
+      name: "gToast"
+    })
     .expect(200)
     .expect('Content-Type', /application\/json/)
-    .end(function(err, res) {
-      // expect(res.body.name).to.equal('Kevin');
-      // expect(res.body.email).to.equal('kevin@example.com');
-      // expect(res.body.phoneNumber).to.equal('12345');
-      // expect(res.body.role).to.equal('editor');
-      done()
-    })
+    .expect('"Team details updated"', done)
   })
+
+  it('should return a status code of 500 from PUT /teams/:id with an empty body', (done) => {
+    agent.put('/teams/1').set('Accept', 'application/json')
+    .send({})
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+    .expect('"Team details updated"', done)
+  })
+
+  it('should return a status code of 500 from DELETE /teams/:id when deleting a team that does not exist', (done) => {
+    agent.delete('/teams/9000').expect(500, done)
+  })
+
+  // it('should return from DELETE /teams/:id with a string "Team successfullyn updated"', (done) => {
+  //   agent.del('/teams/1')
+  //   .expect(200, done)
+  // })
 });
