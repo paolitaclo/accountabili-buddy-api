@@ -52,18 +52,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const users = require('./routes/users');
-const profile = require('./routes/profile');
+// const profile = require('./routes/profile');
 const teams = require('./routes/teams');
 const events = require('./routes/events');
 const token = require('./routes/token');
-const tokenOauth = require('./routes/tokenOauth');
 
 app.use(users);
-app.use(profile);
+// app.use(profile);
 app.use(teams);
 app.use(events);
 app.use(token);
-app.use(tokenOauth);
 
 app.use((req, res) => {
   res.sendStatus(404);
