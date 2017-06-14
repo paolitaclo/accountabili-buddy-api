@@ -65,6 +65,7 @@ router.route('/users')
       last_name: body.lastName,
       email: body.email,
       hashed_password: hashedPassword,
+      profile_image_url: body.profileUrl
     })
     .save()
     .then((user) => {

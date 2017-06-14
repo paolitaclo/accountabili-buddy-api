@@ -30,11 +30,12 @@
     "eslint-plugin-import": "^2.2.0",
     "mocha": "^3.3.0",
     "nodemon": "^1.11.0",
+    "nyc": "^11.0.2",
     "supertest": "^3.0.0"
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha"
+    "test": "nyc --reporter=html --reporter=text mocha test/*.test.js"
   },
   "keywords": [],
   "author": "",
