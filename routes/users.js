@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt-as-promised');
-const boom = require('boom');
+const boom = require('boom'); // this is a great package!!!
 const passport = require('passport');
 
 const knex = require('../knex');
@@ -16,10 +16,12 @@ function isEmpty(value) {
   return value === undefined || value.trim().length === 0;
 }
 
+// comments
 function hasMinLength(value, minLength) {
   return !isEmpty(value) && value.length >= minLength;
 }
 
+// comments
 function validateUser({ firstName, lastName, email, password }) {
   const errors = [];
 
@@ -39,6 +41,7 @@ function validateUser({ firstName, lastName, email, password }) {
   return errors.length > 0 ? boom.create(400, errors.join('. ')) : undefined;
 }
 
+// comments
 router.route('/users')
   .get((req, res, next) => {
     Users.fetchAll({ withRelated: ['taggedImages', 'teams', 'ownedImages'] })
@@ -72,13 +75,14 @@ router.route('/users')
     .catch(err => next(err));
   });
 
+ // comments
 router.route('/users/:id')
   .get((req, res, next) => {
     Users.where('id', '=', req.params.id)
     .fetch()
     .then((user) => {
       if (!user) {
-        return next(boom.create(400, 'Used not found'));
+        return next(boom.create(400, 'User not found'));
       }
       return Users.where('id', '=', req.params.id).fetch({
         withRelated: ['teams', 'taggedImages', 'ownedImages']
@@ -126,11 +130,13 @@ router.route('/users/:id/score')
     .catch(err => next(err));
   });
 
+ // comments
 router.route('/users/facebook')
   .get(passport.authenticate('facebook', { scope: ['email'], failureRedirect: '/' }),
   (req, res) => res.redirect('/profile')
 );
 
+// comments
 router.route('/users/facebook/return')
   .get(passport.authenticate('facebook', { failureRedirect: '/' }),
   (req, res) => res.redirect('/profile')
