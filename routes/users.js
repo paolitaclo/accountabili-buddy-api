@@ -96,6 +96,7 @@ router.route('/users/:id')
   })
   .patch((req, res, next) => {
     const id = req.params.id;
+    console.log('info to patch: ', req.body);
     return new Users({ id })
     .fetch()
     .then((user) => {

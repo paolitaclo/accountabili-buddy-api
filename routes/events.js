@@ -29,9 +29,7 @@ router.route('/events')
     })
     .save(null, { transacting: t })
     .then((image) => {
-      console.log('this is image row: ', image.toJSON());
       const idImage = image.get('id');
-      // need to find how to add the usersToTag
       return Events.forge({
         image_id: idImage,
         user_id,
@@ -40,12 +38,10 @@ router.route('/events')
       }).save(null, { transacting: t });
     }))
     .then((event) => {
-      console.log('this is event row: ', event.toJSON());
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(event));
     })
     .catch((err) => {
-      console.log('status ', err);
       next(err);
     });
   });
